@@ -1,5 +1,5 @@
 # Analyze .csv files from bank statements in Python
-Neither Revolut, nor Cedit Suisse offer APIs for non-business customers. As an engineer I am annoyed and therefor chose to write this python library that helps me manage my expanses. Revolut `csv` exports are straightforward but Credit Suisse statements are terrible :). 
+Neither Revolut, nor Cedit Suisse offer APIs for non-business customers. As an engineer I am annoyed and therefore chose to write this python library that helps me manage my expanses. Revolut `csv` exports are straightforward but Credit Suisse statements are terrible :). 
 
 Therefore Revolut statements can be anything (monthly, yearly, etc.) and are processed one-by-one using the directory structure described below.
 

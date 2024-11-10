@@ -32,12 +32,12 @@ def main():
     revolut_parser = Parser('Description', None)
     month = revolut_mmyyyy[mmyyyy[0:2]]
     year = mmyyyy[2:]
-    revolut_parser.parse_file("{month}_{year}.csv".format(month=month, year=year))
+    revolut_parser.parse_file("{revolut_path}{month}_{year}.csv".format(revolut_path=REVOLUT_REL_PATH,month=month, year=year))
     revolut_expanses = revolut_parser.solve_expanses()
-    revolut_expanses = expanses = parser.sort_expanses(revolut_expanses)
+    revolut_expanses = expanses = revolut_parser.sort_expanses(revolut_expanses)
 
     credit_suisse_expanses = sum_merchant_MMYYYY(mmyyyy)
 
     statement = "Revolut sum: {revolut}, \n Credit Suisse sum: {credit_suisse}".format(revolut=revolut_expanses, credit_suisse=credit_suisse_expanses)
-    
+    print(statement)
 main()

@@ -16,23 +16,35 @@ def extract_transactions():
     df = pd.read_csv("banks/cs/account.csv", header=None)
     df[['Date', 'Transaction Name', 'Price']] = df.apply(extract_fields, axis=1)
     df = df.dropna(subset=['Date', 'Transaction Name', 'Price'])
-    for index, row in df.iterrows():
+    transactions = []
+    for _, row in df.iterrows():
         date = row['Date']
         transaction_name = row['Transaction Name']
         price = row['Price']
         
-        # Access each component individually
-        print(f"Transaction {index + 1}:")
-        print(f"  Date: {date}")
-        print(f"  Transaction Name: {transaction_name}")
-        print(f"  Price: {price}")
-
-        # return transaction
-
-def sum_merchant_MMYY(MMYY):
+        transaction = {}
+        transaction['date'] = date
+        transaction['name'] = transaction_name
+        transaction['price'] = price
+        transactions.append(transaction)
+    return transactions
+# example: 092024 = 09.2024 (SEPTEMBER 2024)
+def sum_merchant_MMYYYY(mmyyyy):
     out = {}
     transactions = extract_transactions()
+    for transaction in transactions:
+        try:
+            if transaction['date'][3:5] != mmyyyy[0:2] or transaction['date'][6:10] != mmyyyy[2:6]:
+                continue
+            if transaction['name'] in out:
+                out[transaction['name']] += float(transaction['price'])
+            else:
+                out[transaction['name']] = float(transaction['price'])
+        except Exception as e:
+            print("Warning: ", e)
+    print(out)
+    return out
     # sum amounts by merchant and return
     # todo: make client that will do this for revolut + credit suisse, 
     # the only input will be MMYY.
-extract_transactions()
+sum_merchant_MMYYYY("102024")

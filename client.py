@@ -36,13 +36,36 @@ def main():
     revolut_expanses = revolut_parser.solve_expanses()
     revolut_expanses = revolut_parser.sort_expanses(revolut_expanses)
     revolut_expanses = round_sorted_expanses(revolut_parser.sum_sorted_expanses(revolut_expanses, 'Description', 'Amount'))
-    credit_suisse_expanses = sum_merchant_MMYYYY(mmyyyy)
-    print_statement(revolut_expanses)
-    print_statement(credit_suisse_expanses)
+    credit_suisse_expanses = round_sorted_expanses(sum_merchant_MMYYYY(mmyyyy))
+    revolut_statement = format_statement(revolut_expanses)
+    credit_suisse_statement = format_statement(credit_suisse_expanses)
+    if not os.path.exists('out'):
+        os.makedirs('out')
 
-def print_statement(statement):
+    # Export revolut statement
+    revolut_filename = 'out/Revolut_{month}_{year}.txt'.format(month=month, year=year)
+    write_statement(revolut_filename, revolut_statement)
+
+    # Export credit suisse statement
+    credit_suisse_filename = 'out/CreditSuisse_{month}_{year}.txt'.format(month=month, year=year)
+    write_statement(credit_suisse_filename, credit_suisse_statement)
+
+
+def format_statement(statement):
+    lines = ""
     for merchant in statement:
         out = "{name}: {value} CHF".format(name=merchant, value=statement[merchant])
-        print(out)
+        lines += out
+        lines += '\n'
+    return lines
+
+def write_statement(filename, statement):
+    try:
+        open(filename, 'x')
+    except Exception as exists:
+        print('[Error]: Statement exists, try again!')
+        main()
+    with open(filename, 'w') as file:
+        file.write(statement)
 
 main()

@@ -12,6 +12,7 @@ def extract_fields(row):
     return pd.Series([None, None, None])
 
 def extract_transactions():
+    # path is fixed, replace file upon change
     df = pd.read_csv("banks/cs/account.csv", header=None)
     df[['Date', 'Transaction Name', 'Price']] = df.apply(extract_fields, axis=1)
     df = df.dropna(subset=['Date', 'Transaction Name', 'Price'])
@@ -26,4 +27,12 @@ def extract_transactions():
         print(f"  Transaction Name: {transaction_name}")
         print(f"  Price: {price}")
 
+        # return transaction
+
+def sum_merchant_MMYY(MMYY):
+    out = {}
+    transactions = extract_transactions()
+    # sum amounts by merchant and return
+    # todo: make client that will do this for revolut + credit suisse, 
+    # the only input will be MMYY.
 extract_transactions()

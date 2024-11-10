@@ -32,3 +32,5 @@ See examples of how to use this data in `/tests/revolut.py`.
 
 
 ### Credit Suisse
+This isn't ideal, take the .csv dump and delete the first few lines in the editor (we only want the transaction data and the `csv` is horribly formatted).
+Then use the functions found in `cs.py`.

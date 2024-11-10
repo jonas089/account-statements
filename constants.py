@@ -1,0 +1,3 @@
+REVOLUT_REL_PATH = './banks/revolut/'
+CREDIT_SUISSE_REL_PATH = './banks/cs/'
+DEFAULT_FLOAT_PRECISION = 2

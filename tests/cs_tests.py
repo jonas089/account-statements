@@ -4,6 +4,6 @@ from cs import sum_merchant_MMYYYY
 from lib import round_sorted_expanses
 
 def test_sum_merchant():
-    print(round_sorted_expanses(sum_merchant_MMYYYY("102024")))
+    expanses = round_sorted_expanses(sum_merchant_MMYYYY("102024"))
 
 test_sum_merchant()

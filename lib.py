@@ -68,14 +68,26 @@ class Parser:
             else:
                 out[expanse[master_key]] = [expanse]
         return out
+    
+    def sort_expanses_dict(self, expanses):
+        master_key = self.master_key
+        out = {}
+        for file in expanses:
+            for expanse in file:
+                if expanse[master_key] in out:
+                    out[expanse[master_key]].append(expanse)
+                else:
+                    out[expanse[master_key]] = [expanse]
+            return out
 
     def sum_sorted_expanses(self, expanses, identifying_key, value_key):
         out = {}
-        for expanse in expanses:
-            if expanse[identifying_key] not in out:
-                out[expanse[identifying_key]] = float(expanse[value_key])
-            else:
-                out[expanse[identifying_key]] += float(expanse[value_key])
+        for merchant in expanses:
+            for transaction in expanses[merchant]:
+                if transaction[identifying_key] not in out:
+                    out[transaction[identifying_key]] = float(transaction[value_key])
+                else:
+                    out[transaction[identifying_key]] += float(transaction[value_key])
         return out
 
 def round_sorted_expanses(sorted_expanses):

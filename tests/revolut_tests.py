@@ -31,7 +31,9 @@ def test_sum_sorted_expanses():
     AMOUNT_KEY = 'Amount'
     parser = Parser(MASTER_KEY, None)
     expanses = parser.solve_directory(REVOLUT_REL_PATH)
-    #print("Rounded: ", round_sorted_expanses(parser.sum_sorted_expanses(expanses[1], MASTER_KEY, AMOUNT_KEY)))
+    expanses = parser.sort_expanses_dict(expanses)
+    expanses = round_sorted_expanses(parser.sum_sorted_expanses(expanses, MASTER_KEY, AMOUNT_KEY))
+    #print("Rounded: ", expanses)
 
 test_solve_for_master_key()
 test_solve_and_sort()

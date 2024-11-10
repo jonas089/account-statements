@@ -1,5 +1,6 @@
 import pandas as pd
 import re
+from lib import round_sorted_expanses
 
 def extract_fields(row):
     line = ','.join(map(str, row))  # Convert row to a single line string
@@ -42,9 +43,7 @@ def sum_merchant_MMYYYY(mmyyyy):
                 out[transaction['name']] = float(transaction['price'])
         except Exception as e:
             print("Warning: ", e)
-    print(out)
     return out
     # sum amounts by merchant and return
     # todo: make client that will do this for revolut + credit suisse, 
     # the only input will be MMYY.
-sum_merchant_MMYYYY("102024")

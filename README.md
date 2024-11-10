@@ -24,7 +24,7 @@ For `Revolut`, it is recommened to place the input files in `./banks/revolut/MON
 ./banks/revolut/september_2024.csv
 ...
 ```
-See examples of how to use this data in `/tests/revolut.py`. 
+See examples of how to use this data in `/tests/revolut_tests.py`. 
 
 > [!NOTE]
 > Using yearly, quarterly or other data should work fine, adjust higher-level logic accordingly when building on top of `lib.py`.
@@ -33,4 +33,6 @@ See examples of how to use this data in `/tests/revolut.py`.
 
 ### Credit Suisse
 This isn't ideal, take the .csv dump and delete the first few lines in the editor (we only want the transaction data and the `csv` is horribly formatted).
-Then use the functions found in `cs.py`.
+Then use the functions found in `cs.py`. 
+
+See tests in `/tests/cs_tests.py`.

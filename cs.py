@@ -11,35 +11,44 @@ def extract_fields(row):
         return pd.Series([date, transaction_name, price])
     return pd.Series([None, None, None])
 
+import pandas as pd
+
+def extract_fields(row):
+    """Assume extract_fields processes the row and extracts Date, Transaction Name, and Price."""
+    try:
+        date, transaction_name, price = row[0], row[1], row[2]
+        return pd.Series([date, transaction_name, price])
+    except Exception as e:
+        return pd.Series([None, None, None])
+
 def extract_transactions():
-    # path is fixed, replace file upon change
-    df = pd.read_csv("banks/cs/account.csv", header=None)
+    try:
+        df = pd.read_csv("banks/cs/account.csv", header=None)
+    except Exception as e:
+        print(f"Error reading file: {e}")
+        return []    
+    if df.shape[1] < 3:
+        print("CSV format incorrect, expecting at least 3 columns.")
+        return []
     df[['Date', 'Transaction Name', 'Price']] = df.apply(extract_fields, axis=1)
     df = df.dropna(subset=['Date', 'Transaction Name', 'Price'])
-    transactions = []
-    for _, row in df.iterrows():
-        date = row['Date']
-        transaction_name = row['Transaction Name']
-        price = row['Price']
-        
-        transaction = {}
-        transaction['date'] = date
-        transaction['name'] = transaction_name
-        transaction['price'] = price
-        transactions.append(transaction)
+    transactions = df[['Date', 'Transaction Name', 'Price']].to_dict(orient='records')
+
+    print(transactions)
     return transactions
+
 # example: 092024 = 09.2024 (SEPTEMBER 2024)
 def sum_merchant_MMYYYY(mmyyyy):
     out = {}
     transactions = extract_transactions()
     for transaction in transactions:
         try:
-            if transaction['date'][3:5] != mmyyyy[0:2] or transaction['date'][6:10] != mmyyyy[2:6]:
+            if transaction['Date'][3:5] != mmyyyy[0:2] or transaction['Date'][6:10] != mmyyyy[2:6]:
                 continue
-            if transaction['name'] in out:
-                out[transaction['name']] += float(transaction['price'])
+            if transaction['Transaction Name'] in out.keys():
+                out[transaction['Transaction Name']] += float(transaction['Price'])
             else:
-                out[transaction['name']] = float(transaction['price'])
+                out[transaction['Transaction Name']] = float(transaction['Price'])
         except Exception as e:
             print("Warning: ", e)
     return out

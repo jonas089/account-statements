@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-from constants import REVOLUT_REL_PATH, DEFAULT_FLOAT_PRECISION
+from constants import DEFAULT_FLOAT_PRECISION
 
 class Parser:
     def __init__(self, master_key, expected_value):
@@ -84,7 +84,7 @@ class Parser:
         out = {}
         for merchant in expanses:
             for transaction in expanses[merchant]:
-                if transaction[identifying_key] not in out:
+                if transaction[identifying_key] not in out.keys():
                     out[transaction[identifying_key]] = float(transaction[value_key])
                 else:
                     out[transaction[identifying_key]] += float(transaction[value_key])

@@ -1,7 +1,7 @@
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from lib import *
-
+from constants import REVOLUT_REL_PATH
 def test_solve_for_master_key():
     MASTER_KEY = 'Description'
     EXPECTED_VALUE = 'Coop'
@@ -13,7 +13,7 @@ def test_solve_for_master_key():
 
 def test_solve_and_sort():
     MASTER_KEY = 'Description'
-    TEST_DATA_PATH = os.path.join(REVOLUT_REL_PATH, "october_2024.csv")
+    TEST_DATA_PATH = os.path.join(REVOLUT_REL_PATH, "january_2025.csv")
     parser = Parser(MASTER_KEY, None)
     parser.parse_file(TEST_DATA_PATH)
     expanses = parser.solve_expanses()

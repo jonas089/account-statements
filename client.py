@@ -44,13 +44,12 @@ def main():
         os.makedirs('out')
 
     # Export revolut statement
-    #revolut_filename = 'out/Revolut_{month}_{year}.txt'.format(month=month, year=year)
-    #write_statement(revolut_filename, revolut_statement)
+    revolut_filename = 'out/Revolut_{month}_{year}.txt'.format(month=month, year=year)
+    write_statement(revolut_filename, revolut_statement)
 
     # Export credit suisse statement
-    #credit_suisse_filename = 'out/CreditSuisse_{month}_{year}.txt'.format(month=month, year=year)
-    #write_statement(credit_suisse_filename, credit_suisse_statement)
-    print(credit_suisse_statement)
+    credit_suisse_filename = 'out/CreditSuisse_{month}_{year}.txt'.format(month=month, year=year)
+    write_statement(credit_suisse_filename, credit_suisse_statement)
 
 
 def format_statement(statement):

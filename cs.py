@@ -33,8 +33,6 @@ def extract_transactions():
     df[['Date', 'Transaction Name', 'Price']] = df.apply(extract_fields, axis=1)
     df = df.dropna(subset=['Date', 'Transaction Name', 'Price'])
     transactions = df[['Date', 'Transaction Name', 'Price']].to_dict(orient='records')
-
-    print(transactions)
     return transactions
 
 # example: 092024 = 09.2024 (SEPTEMBER 2024)
